@@ -5,14 +5,30 @@ First run command to build jar we can also build using dockerfile as well
 
 ``mvn clean install``
 
+### Docker
 Command for building docker image
 ```
 docker build -t <image-name> .
+```
+```
+docker ps
+```
+```
+docker images
+```
+```
+docker image ls
+```
+```
+docker image history <image-name>  
 ```
 
 Command to delete image
 ``` 
 docker rmi <image-name>
+```
+``` 
+docker rmi -f <image-name>
 ```
 
 Command to run docker image
@@ -30,12 +46,10 @@ docker ps
 ``
 docker log <container-id>
 ``
-
 Command to stop running image
 ```
 docker stop <conatainer-id> 3digits enough
 ```
-
 ```
 docker stop <image-name>
 ```

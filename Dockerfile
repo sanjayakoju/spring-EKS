@@ -1,4 +1,4 @@
-# Building jaf from maven
+# Building jar from maven
 #FROM maven:3.8.4-openjdk-17 AS builder
 #WORKDIR /app
 #COPY pom.xml .
@@ -17,4 +17,3 @@ FROM --platform=linux/amd64 openjdk:17
 ADD target/springboot-eks.jar springboot-eks.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","springboot-eks.jar"]
-
