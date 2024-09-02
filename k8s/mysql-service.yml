@@ -1,0 +1,41 @@
+# MySQL service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-server
+spec:
+  selector:
+    app: mysql-server
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+---
+
+# Mysql Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-server
+  template:
+    metadata:
+      labels:
+        app: mysql-server
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:latest
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: password
+#              value: "Root@1234"  # Set your desired root password
+          ports:
+            - containerPort: 3306

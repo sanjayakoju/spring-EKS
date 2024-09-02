@@ -1,5 +1,7 @@
 ### Reference
-```https://medium.com/@javatechie/deploying-a-spring-boot-application-on-aws-eks-fdd7d075f034```
+```
+https://medium.com/@javatechie/deploying-a-spring-boot-application-on-aws-eks-fdd7d075f034
+```
 
 First run command to build jar we can also build using dockerfile as well
 
@@ -66,26 +68,65 @@ Kubernetes Mac Os brew install command
 * brew install helm
 
 ### Run Minikube
-####  execute
+execute
 ```
 minikube start
 ```
-#### stop
+
+stop
 ```
 minikube stop
 ```
+
 check status
 ```
 minikube status
 ```
+
 check ip
 ```
 minikube ip
 ```
 
+delete cluster
+```
+minikube delete
+```
+
+```
+minikube profile list
+```
+
+```
+minikube dashboard
+```
+
+load image
+```
+minikube image load <image-name: springboot-eks:latest> 
+```
+
+Allowing minikube to read our docker repository
+```
+eval $(minikube docker-env)
+```
+
+The Minikube service command creates a tunnel that allows you to access the service locally,
+avoiding potential firewall or network configuration issues.
+```
+minikube service springapp-service
+```
+-- Use the second URL
+
 ---
 
 ### Run Kubernetes command
+
+To verify cluster
+```
+ kubectl cluster-info
+```
+
 configure kubectl
 ```
 kubectl config use-context minikube
@@ -121,6 +162,11 @@ get logs
 kubectl logs -l app=hankman
  ```
 
+rollout restart
+```
+kubectl rollout restart deployment <springapp>
+```
+
 get nodes ip
 ```
 kubectl get nodes -o wide
@@ -141,10 +187,28 @@ To see log
 kubectl logs <pod-name>
 ```
 
+Expose
+```
+kubectl exec -it <name: mysql-server-646ff99fd-p7kfb> /bin/bash
+```
+
+run secret map and config map before service
+```
+kubectl apply -f <file name>
+```
+
+```
+kubectl get secrets 
+```
+
+```
+kubectl get configmap
+```
+
 The Minikube service command creates a tunnel that allows you to access the service locally,
 avoiding potential firewall or network configuration issues.
 ```
-minikube service hankman-service
+minikube service springapp-service
 ```
 -- Use the second URL
 
@@ -179,6 +243,38 @@ minikube service myapp-chart-spring-app-chart --url
 ```
 
 ---
+
+### Jenkins
+Reference url: 
+```
+https://www.youtube.com/watch?v=mszE-OCI2V4&list=PLVz2XdJiJQxzMiFDnwxUDxmuZQU3igcBb&index=5
+```
+
+Install jenkins
+```
+brew install jenkins-lts
+```
+
+Run jenkins
+```
+brew services start jenkins-lts
+```
+Restart jenkins
+```
+sudo brew services restart jenkins-lts
+```
+Stop 
+```
+brew services stop jenkins-lts
+```
+
+--
+
+Encryption
+```
+echo -n 'value you want to encrypt' | base64
+```
+
 
 
 

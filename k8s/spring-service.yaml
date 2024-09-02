@@ -1,37 +1,58 @@
-apiVersion: v1
-kind: Service
-metadata:
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes' resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
   name: springapp-service
 spec:
   selector:
-    app: springapp
+    app: springapp # Name should be same as Deployment selector
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: LoadBalancer
+      port: 80 # The port that the service is running on the cluster
+      targetPort: 8080 # The port exposed by the service
+  type: NodePort # The type of service (NodePort, ClusterIP, Loadbalancer
 
 ---
 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
+apiVersion: apps/v1 # Version of API Server
+kind: Deployment # Kubernetes' resource kind we are creating
+metadata: # Info about application name and label
   name: springapp
-spec:
-  replicas: 3
+spec: #
+  replicas: 3 # Number pf replicas that will be created for this deployment
   selector:
     matchLabels:
-      app: springapp
-  template:
+      app: springapp # Both app name should be same
+  template: #
     metadata:
       labels:
-        app: springapp
+        app: springapp # Both app name should be same
     spec:
       containers:
         - name: springapp-container
-          image: springboot-eks:latest
-          imagePullPolicy: Never
+          image: springboot-eks:latest # Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - containerPort:  80 # The port that the container is running on the cluster
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: dbUrl
+                  name: db-config
+            #              value: "jdbc:mysql://mysql-server:3306/hankman-db?createDatabaseIfNotExist=true"
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: mysql-secrets
+            #              value: "root"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: mysql-secrets
+#              value: "Root@1234"
+
+---
 
 
