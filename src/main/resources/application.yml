@@ -2,6 +2,9 @@ spring:
   application:
     name: springboot-eks
 
+#  main:
+#    web-application-type: none
+
   ### Data Source configuration
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,3 +22,10 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
     database-platform: mysql
+
+  ## kafka
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

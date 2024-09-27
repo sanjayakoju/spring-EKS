@@ -111,6 +111,11 @@ Allowing minikube to read our docker repository
 eval $(minikube docker-env)
 ```
 
+By default minikube come with ingress but we need to enabled
+```
+minikube addons enable ingress
+```
+
 The Minikube service command creates a tunnel that allows you to access the service locally,
 avoiding potential firewall or network configuration issues.
 ```
@@ -164,12 +169,16 @@ kubectl logs -l app=hankman
 
 rollout restart
 ```
-kubectl rollout restart deployment <springapp>
+kubectl rollout restart deployment <springapp-deployment>
 ```
 
 get nodes ip
 ```
 kubectl get nodes -o wide
+```
+
+```
+kubectl get all
 ```
 
 delete all service
@@ -268,11 +277,25 @@ Stop
 brew services stop jenkins-lts
 ```
 
+Jenkins password
+```
+cat /Users/sanjayakoju/.jenkins/secrets/initialAdminPassword
+```
+
 --
 
-Encryption
+### Encryption
+
 ```
 echo -n 'value you want to encrypt' | base64
+```
+
+---
+### kafka
+
+To start kafka though docker compose
+```
+sudo docker compose -f kafka-compose.yaml up -d  
 ```
 
 
