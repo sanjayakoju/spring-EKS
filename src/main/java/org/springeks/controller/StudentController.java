@@ -27,11 +27,11 @@ public class StudentController {
     @Autowired
     private StudentRepository studentRepository;
 
-
     @RequestMapping(path = "/save", method = RequestMethod.POST)
     public ResponseEntity<?> save(@RequestBody Student student) {
         return new ResponseEntity<>(studentRepository.save(student), HttpStatus.CREATED);
     }
+
 
     @Cacheable(cacheNames = "test")
     @GetMapping
